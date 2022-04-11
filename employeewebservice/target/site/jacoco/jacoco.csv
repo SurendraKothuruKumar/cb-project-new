@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+employeewebservice,com.training.employeewebservice.config,SecurityConfig,0,64,0,0,0,11,0,3,0,3
+employeewebservice,com.training.employeewebservice.controller,EmployeeController,19,36,0,0,2,6,2,5,2,5
+employeewebservice,com.training.employeewebservice.service,EmployeeServiceImpl,18,46,0,0,3,7,1,4,1,4
+employeewebservice,com.training.employeewebservice,EmployeewebserviceApplication,5,3,0,0,2,1,1,1,1,1
+employeewebservice,com.training.employeewebservice.model,Employee,35,112,7,7,4,27,8,12,1,12
