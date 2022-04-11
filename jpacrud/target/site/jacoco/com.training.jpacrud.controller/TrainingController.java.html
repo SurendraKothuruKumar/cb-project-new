@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrainingController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jpacrud</a> &gt; <a href="index.source.html" class="el_package">com.training.jpacrud.Controller</a> &gt; <span class="el_source">TrainingController.java</span></div><h1>TrainingController.java</h1><pre class="source lang-java linenums">package com.training.jpacrud.Controller;
+
+
+
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.training.jpacrud.Model.Training;
+import com.training.jpacrud.Service.TrainingService;
+
+
+@Controller
+<span class="fc" id="L24">public class TrainingController {</span>
+	
+	@Autowired
+	TrainingService trainService;
+	
+	@GetMapping(&quot;/listTrainings&quot;)
+	public  String listTrainings(ModelMap model, @RequestParam(required = false, defaultValue = &quot;0&quot;) int pageNumber) {
+<span class="fc" id="L31">		model.addAttribute(&quot;trainingList&quot;,trainService.listTrainings(pageNumber));</span>
+<span class="fc" id="L32">		 return &quot;listTrainingPage&quot;;</span>
+		
+		}
+	@GetMapping(&quot;/addTraining&quot;)
+	public  ModelAndView showAddTraining(ModelMap model) {
+<span class="fc" id="L37">		return new ModelAndView(&quot;addTrainingPage&quot;,&quot;Training&quot;,new Training());</span>
+		
+		
+		}
+	
+	@PostMapping(&quot;/addTraining&quot;)
+	public  ModelAndView addTraining(@Valid @ModelAttribute(&quot;Training&quot;) Training training ,BindingResult result) {
+<span class="fc" id="L44">		ModelAndView  mv=new ModelAndView();</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">		if(result.hasErrors())</span>
+		{
+<span class="fc" id="L47">			mv.setViewName(&quot;addTrainingPage&quot;);</span>
+		}else {
+<span class="fc" id="L49">		trainService.addtraining(training);</span>
+<span class="fc" id="L50">		mv.addObject(&quot;trainingList&quot;,trainService.listTrainings(0));</span>
+<span class="fc" id="L51">		mv.addObject(&quot;msg&quot;,&quot;successfully added&quot;);</span>
+<span class="fc" id="L52">		mv.setViewName(&quot;listTrainingPage&quot;);</span>
+		}
+<span class="fc" id="L54">		return mv;</span>
+		
+		}
+	@GetMapping(&quot;/editTraining&quot;)
+	public  ModelAndView showEditTraining(@RequestParam int id) {
+<span class="fc" id="L59">		return new ModelAndView(&quot;editTrainingPage&quot;,&quot;Training&quot;,trainService.getTrainingById(id));</span>
+		
+		
+		}
+	
+	@PostMapping(&quot;/editTraining&quot;)
+	public  ModelAndView editTraining(@Valid @ModelAttribute(&quot;Training&quot;) Training training ,BindingResult result) {
+<span class="fc" id="L66">		ModelAndView  mv=new ModelAndView();</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">		if(result.hasErrors())</span>
+		{
+<span class="fc" id="L69">			mv.setViewName(&quot;editTrainingPage&quot;);</span>
+		}else {
+<span class="fc" id="L71">		trainService.addtraining(training);</span>
+<span class="fc" id="L72">		mv.addObject(&quot;trainingList&quot;,trainService.listTrainings(0));</span>
+<span class="fc" id="L73">		mv.addObject(&quot;msg&quot;,&quot;successfully updated&quot;);</span>
+<span class="fc" id="L74">		mv.setViewName(&quot;listTrainingPage&quot;);</span>
+		}
+<span class="fc" id="L76">		return mv;</span>
+		
+		}
+	@GetMapping(&quot;/deleteTraining&quot;)
+	public  ModelAndView  deleteTraining(@RequestParam int id) {
+<span class="fc" id="L81">		ModelAndView  mv=new ModelAndView();</span>
+<span class="fc" id="L82">		trainService.deleteTrainingById(id);</span>
+<span class="fc" id="L83">		mv.addObject(&quot;trainingList&quot;,trainService.listTrainings(0));</span>
+<span class="fc" id="L84">		mv.addObject(&quot;msg&quot;,&quot;successfully deleted&quot;);</span>
+<span class="fc" id="L85">		mv.setViewName(&quot;listTrainingPage&quot;);</span>
+		
+<span class="fc" id="L87">		return mv;</span>
+		}
+		
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
